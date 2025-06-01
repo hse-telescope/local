@@ -2,7 +2,8 @@
 
 ## Quick Start
 
-Init the submodules:
-```sh
-make submodules
-```
+Init the submodules: `make submodules`
+
+Start docker compose: `make compose`
+
+Stop docker compose: `make decompose`

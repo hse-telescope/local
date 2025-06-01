@@ -3,8 +3,7 @@ version: '3'
 services:
   auth:
     build:
-      context: .
-      dockerfile: auth/Dockerfile
+      context: auth
     command: ["./auth.yaml"]
     volumes:
       - './configs/auth.yaml:/app/auth.yaml'
@@ -25,8 +24,7 @@ services:
 
   core:
     build:
-      context: .
-      dockerfile: core/Dockerfile
+      context: core
     command: ["./core.yaml"]
     volumes:
       - './configs/core.yaml:/app/core.yaml'
@@ -47,8 +45,7 @@ services:
 
   gateway:
     build:
-      context: .
-      dockerfile: gateway/Dockerfile
+      context: gateway
     command: ["./gateway.yaml"]
     volumes:
       - './configs/gateway.yaml:/app/gateway.yaml'
@@ -67,8 +64,7 @@ services:
 
   emailer:
     build:
-      context: .
-      dockerfile: emailer/Dockerfile
+      context: emailer
     command: ["./emailer.yaml"]
     volumes:
       - './configs/emailer.yaml:/app/emailer.yaml'
