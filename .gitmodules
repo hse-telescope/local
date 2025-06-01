@@ -1,19 +1,24 @@
 [submodule "auth"]
 	path = auth
 	url = git@github.com:hse-telescope/auth.git
+	branch = master
 
 [submodule "core"]
 	path = core
 	url = git@github.com:hse-telescope/core.git
+	branch = master
 
 [submodule "emailer"]
 	path = emailer
 	url = git@github.com:hse-telescope/emailer.git
+	branch = master
 
 [submodule "frontend"]
 	path = frontend
 	url = git@github.com:hse-telescope/frontend.git
+	branch = master
 
 [submodule "gateway"]
 	path = gateway
 	url = git@github.com:hse-telescope/gateway.git
+	branch = master
