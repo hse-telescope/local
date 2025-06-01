@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  auth-db:
+    image: postgres:15.1
+    hostname: auth-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - auth-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 100
+      start_period: 10s
+    networks:
+      - auth2db
+
+  core-db:
+    image: postgres:15.1
+    hostname: core-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - core-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 100
+      start_period: 10s
+    networks:
+      - core2db
+
+volumes:
+  auth-data:
+  core-data:

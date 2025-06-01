@@ -1,0 +1,10 @@
+email_credentials:
+  host: smtp.mail.ru
+  port: 587
+  email: hse-telescope@mail.ru
+  password: ZsXzJYH4P7BtEZk6r5Xd
+
+queue_credentials:
+  urls:
+    - kafka:9092
+  topic: send-email-events

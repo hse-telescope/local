@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: auth/Dockerfile
+    command: ["./auth.yaml"]
+    volumes:
+      - './configs/auth.yaml:/app/auth.yaml'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '64M'
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - gateway2auth
+      - auth2db
+      - auth2queue
+
+  core:
+    build:
+      context: .
+      dockerfile: core/Dockerfile
+    command: ["./core.yaml"]
+    volumes:
+      - './configs/core.yaml:/app/core.yaml'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '64M'
+    depends_on:
+      core-db:
+        condition: service_healthy
+      # core-s3:
+      #   condition: service_healthy
+    networks:
+      - frontend2core
+      - gateway2core
+      - core2db
+
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    command: ["./gateway.yaml"]
+    volumes:
+      - './configs/gateway.yaml:/app/gateway.yaml'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '64M'
+    depends_on:
+      - auth
+      - core
+    networks:
+      - gateway2auth
+      - gateway2core
+      - frontend2gateway
+
+  emailer:
+    build:
+      context: .
+      dockerfile: emailer/Dockerfile
+    command: ["./emailer.yaml"]
+    volumes:
+      - './configs/emailer.yaml:/app/emailer.yaml'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '64M'
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - emailer2queue

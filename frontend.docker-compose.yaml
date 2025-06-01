@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '64M'
+    volumes:
+      - /opt/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - '443:443'
+    depends_on:
+      - gateway
+    networks:
+      - frontend2core
+      - frontend2gateway
