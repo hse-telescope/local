@@ -21,6 +21,7 @@ services:
       - gateway2auth
       - auth2db
       - auth2queue
+      - telemetry
 
   core:
     build:
@@ -42,6 +43,7 @@ services:
       - frontend2core
       - gateway2core
       - core2db
+      - telemetry
 
   gateway:
     build:
@@ -61,6 +63,7 @@ services:
       - gateway2auth
       - gateway2core
       - frontend2gateway
+      - telemetry
 
   emailer:
     build:
@@ -78,3 +81,4 @@ services:
         condition: service_healthy
     networks:
       - emailer2queue
+      - telemetry
