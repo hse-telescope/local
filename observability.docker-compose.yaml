@@ -31,7 +31,7 @@ services:
     image: grafana/loki:latest
     # command: -config.file=/etc/loki/local-config.yaml
     # volumes:
-    #   - ./config/loki.yaml:/etc/loki/local-config.yaml
+    #   - ./configs/loki.yaml:/etc/loki/local-config.yaml
     networks:
       - telemetry
   jaeger:
